@@ -1,6 +1,6 @@
-## Установка OpenBSD на ROC-RK3399-PC (Renegate Elite)
+## Установка OpenBSD на ROC-RK3399-PC (Renegade Elite)
 
-Небольшой гайд как установить OpenBSD 6.7 на ROC-RK3399-PC (Renegate Elite) с использованием U-Boot Mainline.
+Небольшой гайд как установить OpenBSD 6.7 на ROC-RK3399-PC (Renegade Elite) с использованием U-Boot Mainline.
 
 ### Потребуется
 
