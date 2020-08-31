@@ -80,8 +80,7 @@ u-boot$ sudo umount /mnt
 
 ### Подключение UART 
 Подключаем UART к ROC-RK3399-PC как на изображении.
-В данном случае используется адаптер на базе чипа CP2102.
-<img src="img/roc-rk3399-pc_uart_cp210x.jpg" alt="hi" class="inline"/>
+В данном случае используется адаптер на базе чипа CP210x.
 ![Image](img/roc-rk3399-pc_uart_cp210x.jpg)
 
 Настраиваем соединение на нужный COM порт и скорость 1500000.
@@ -89,5 +88,4 @@ u-boot$ sudo umount /mnt
 https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers
 
 ### Готово
-<img src="img/uboot_openbsd_uart.png" alt="hi" class="inline"/>
 ![Image](img/uboot_openbsd_uart.png)
