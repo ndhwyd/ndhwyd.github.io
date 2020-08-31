@@ -38,15 +38,15 @@ git clone https://github.com/u-boot/u-boot
 Компилируем ARM Trusted Firmware
 ```markdown
 cd trusted-firmware-a
-**trusted-firmware-a$** make CROSS_COMPILE=aarch64-linux-gnu- PLAT=rk3399 bl31
+trusted-firmware-a$ make CROSS_COMPILE=aarch64-linux-gnu- PLAT=rk3399 bl31
 ```
 
 Компилируем U-Boot
 ```markdown
-**trusted-firmware-a$** cp build/rk3399/release/bl31/bl31.elf ../u-boot/
-**trusted-firmware-a$** cd ../u-boot/
-**u-boot$** make CROSS_COMPILE=aarch64-linux-gnu- roc-pc-rk3399_defconfig
-**u-boot$** make CROSS_COMPILE=aarch64-linux-gnu-
+trusted-firmware-a$ cp build/rk3399/release/bl31/bl31.elf ../u-boot/
+trusted-firmware-a$ cd ../u-boot/
+u-boot$ make CROSS_COMPILE=aarch64-linux-gnu- roc-pc-rk3399_defconfig
+u-boot$ make CROSS_COMPILE=aarch64-linux-gnu-
 ```
 Если все прошло без ошибок, в каталоге u-boot появятся файлы idbloader.img и u-boot.itb
 Эти файлы будут использоваться для загрузки.
