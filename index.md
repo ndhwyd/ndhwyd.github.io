@@ -1,5 +1,15 @@
-## Welcome to GitHub Pages
+## Установка OpenBSD на ROC-RK3399-PC (Renegate Elite)
 
+Небольшой гайд как установить OpenBSD 6.7 на ROC-RK3399-PC (Renegate Elite) с использованием U-Boot Mainline.
+
+### Подготовка
+
+Потребуется
+```markdown
+1. USB-to-UART Adapter
+2. SD Card
+3. Ethernet
+```
 You can use the [editor on GitHub](https://github.com/ndhwyd/ndhwyd.github.io/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
 
 Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
