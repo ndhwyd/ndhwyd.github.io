@@ -21,6 +21,26 @@
 1. dd
 ```
 
+### Установка компиляторов
+```markdown
+sudo apt-get install gcc-aarch64-linux-gnu
+```
+
+### U-Boot
+Сначала нужно скомпилировать u-boot для возможности загрузки ОС.
+Клонируем на диск ARM Trusted Firmware 
+```markdown
+git clone https://git.trustedfirmware.org/TF-A/trusted-firmware-a.git
+```
+Переходим в каталог с исходниками
+```markdown
+cd trusted-firmware-a
+```
+Компилируем trusted firmare
+```markdown
+make CROSS_COMPILE=aarch64-linux-gnu- PLAT=rk3399 bl31
+```
+
 You can use the [editor on GitHub](https://github.com/ndhwyd/ndhwyd.github.io/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
 
 Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
