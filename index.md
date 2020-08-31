@@ -28,18 +28,29 @@ sudo apt-get install gcc-aarch64-linux-gnu
 
 ### U-Boot
 Сначала нужно скомпилировать u-boot для возможности загрузки ОС.
-Клонируем на диск ARM Trusted Firmware 
+
+Качаем исходные коды ARM Trusted Firmware и U-Boot
 ```markdown
-git clone https://git.trustedfirmware.org/TF-A/trusted-firmware-a.git
+git clone https://github.com/ARM-software/arm-trusted-firmware
+git clone https://github.com/u-boot/u-boot
 ```
-Переходим в каталог с исходниками
+
+Компилируем ARM Trusted Firmware
 ```markdown
 cd trusted-firmware-a
+**trusted-firmware-a$** make CROSS_COMPILE=aarch64-linux-gnu- PLAT=rk3399 bl31
 ```
-Компилируем trusted firmare
+
+Компилируем U-Boot
 ```markdown
-make CROSS_COMPILE=aarch64-linux-gnu- PLAT=rk3399 bl31
+**trusted-firmware-a$** cp build/rk3399/release/bl31/bl31.elf ../u-boot/
+**trusted-firmware-a$** cd ../u-boot/
+**u-boot$** make CROSS_COMPILE=aarch64-linux-gnu- roc-pc-rk3399_defconfig
+**u-boot$** make CROSS_COMPILE=aarch64-linux-gnu-
 ```
+Если все прошло без ошибок, в каталоге u-boot появятся файлы idbloader.img и u-boot.itb
+Эти файлы будут использоваться для загрузки.
+
 
 You can use the [editor on GitHub](https://github.com/ndhwyd/ndhwyd.github.io/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
 
