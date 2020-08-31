@@ -14,8 +14,7 @@
 # Software (Windows or Linux)
 ## Windows 
 1. Windows 10 + Windows subsystem for Linux
-2. balenaEtcher
-3. WinHex
+2. https://github.com/ndhwyd/openbsd-miniroot-patcher
 
 ## Linux
 1. dd
@@ -26,7 +25,7 @@
 sudo apt-get install gcc-aarch64-linux-gnu
 ```
 
-### U-Boot
+## U-Boot
 Сначала нужно скомпилировать u-boot для возможности загрузки ОС.
 
 Качаем исходные коды ARM Trusted Firmware и U-Boot
@@ -35,11 +34,13 @@ git clone https://github.com/ARM-software/arm-trusted-firmware
 git clone https://github.com/u-boot/u-boot
 ```
 
+
 Компилируем ARM Trusted Firmware
 ```markdown
 cd trusted-firmware-a
 trusted-firmware-a$ make CROSS_COMPILE=aarch64-linux-gnu- PLAT=rk3399 bl31
 ```
+
 
 Компилируем U-Boot
 ```markdown
@@ -48,42 +49,43 @@ trusted-firmware-a$ cd ../u-boot/
 u-boot$ make CROSS_COMPILE=aarch64-linux-gnu- roc-pc-rk3399_defconfig
 u-boot$ make CROSS_COMPILE=aarch64-linux-gnu-
 ```
+
 Если все прошло без ошибок, в каталоге u-boot появятся файлы idbloader.img и u-boot.itb
 Эти файлы будут использоваться для загрузки.
 
 
-You can use the [editor on GitHub](https://github.com/ndhwyd/ndhwyd.github.io/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
+## Подготовка SD
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+Скачиваем образ OpenBSD под ARM64: https://cdn.openbsd.org/pub/OpenBSD/snapshots/arm64/miniroot67.img
 
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
+### On Linux
+У меня sdcard -- это /dev/sdc. На вашем железе может отличаться, внимательно убедитесь что нашли правильное устройство, иначе вы можете повредить данные на жестких дисках.
 ```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+sudo dd if=miniroot67.img of=/dev/sdc bs=1M
+u-boot$ sudo dd if=idbloader.img of=/dev/sdc seek=64
+u-boot$ sudo dd if=u=boot.itb of=/dev/sdc seek=16384
+u-boot$ sudo sync
+u-boot$ sudo mount /dev/sdc1 /mnt
+u-boot$ sudo mkdir /mnt/rockchip
+u-boot$ sudo cp arch/arm/dts/rk3399-roc-pc.dtb /mnt/rockchip/
+u-boot$ sudo umount /mnt
+```
+### On Windows
+```markdown
+Берем утилиту https://github.com/ndhwyd/openbsd-miniroot-patcher и патчим скачанный minirootXX.img
+Записываем получившийся файл на sd карту.
+Создаем в разделе BOOT на sd карте каталог rockchip и копируем туда файл rk3399-roc-pc.dtb
+Вытаскиваем карту
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+### Подключение UART 
+Подключаем UART к ROC-RK3399-PC как на изображении.
+В данном случае используется адаптер на базе чипа CP2102.
+![Image](https://github.com/ndhwyd/ndhwyd.github.io/blob/master/img/roc-rk3399-pc_uart_cp210x.jpg)
 
-### Jekyll Themes
+Настраиваем соединение на нужный COM порт и скорость 1500000.
+Драйвера из Windows 10 не позволяли установить такую скорость, я использовал драйвера версии 6.6.1
+https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/ndhwyd/ndhwyd.github.io/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+### Готово
+![Image](https://github.com/ndhwyd/ndhwyd.github.io/blob/master/img/uboot_openbsd_uart.png)
