@@ -81,11 +81,13 @@ u-boot$ sudo umount /mnt
 ### Подключение UART 
 Подключаем UART к ROC-RK3399-PC как на изображении.
 В данном случае используется адаптер на базе чипа CP2102.
-![Image](https://github.com/ndhwyd/ndhwyd.github.io/blob/master/img/roc-rk3399-pc_uart_cp210x.jpg)
+<img src="img/roc-rk3399-pc_uart_cp210x.jpg" alt="hi" class="inline"/>
+![Image](img/roc-rk3399-pc_uart_cp210x.jpg)
 
 Настраиваем соединение на нужный COM порт и скорость 1500000.
 Драйвера из Windows 10 не позволяли установить такую скорость, я использовал драйвера версии 6.6.1
 https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers
 
 ### Готово
-![Image](https://github.com/ndhwyd/ndhwyd.github.io/blob/master/img/uboot_openbsd_uart.png)
+<img src="img/uboot_openbsd_uart.png" alt="hi" class="inline"/>
+![Image](img/uboot_openbsd_uart.png)
